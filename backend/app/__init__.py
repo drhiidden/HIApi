@@ -1,18 +1,21 @@
 """
-IApi Backend - Flask Application Factory
+IApi Backend Application
+
+Flask application factory for IApi MVP v0.1.
+Stack: Flask 3.1 + LlamaIndex + pgvector + PostgreSQL
 """
+
 from flask import Flask
-from flask_cors import CORS
 
 from app.config import Config
 
 
 def create_app(config_class=Config):
     """
-    Flask application factory.
+    Application factory pattern.
     
     Args:
-        config_class: Configuration class (default: Config from environment)
+        config_class: Configuration class to use
     
     Returns:
         Flask: Configured Flask application
@@ -21,20 +24,19 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     
     # Initialize extensions
-    CORS(app, origins=app.config['CORS_ORIGINS'])
+    from app.extensions import init_extensions
+    init_extensions(app)
     
-    # Register blueprints (TODO: uncomment when implemented)
-    # from app.api.v1 import api_v1
-    # app.register_blueprint(api_v1, url_prefix='/api/v1')
+    # Register blueprints
+    from app.api.v1 import api_v1
+    app.register_blueprint(api_v1, url_prefix='/api/v1')
     
-    # Register error handlers (TODO: implement)
-    # from app.api import errors
-    # app.register_error_handler(404, errors.not_found)
-    # app.register_error_handler(500, errors.internal_error)
+    # Register error handlers
+    from app.api import errors
+    errors.register_error_handlers(app)
     
-    # Health check endpoint
-    @app.route('/health')
-    def health():
-        return {'status': 'healthy', 'version': '0.1.0'}, 200
+    # Register attribution decorator (Invariante #1)
+    from app.services.attribution import add_attribution
+    app.after_request(add_attribution)
     
     return app
