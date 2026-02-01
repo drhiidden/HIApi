@@ -1,0 +1,129 @@
+[project]
+name = "iapi-backend"
+version = "0.1.0"
+description = "IApi - Intelligent API Backend (Flask + LlamaIndex + pgvector RAG)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "IApi Team"}
+]
+
+dependencies = [
+    # Web Framework
+    "flask>=3.1.2,<3.2",
+    "flask-cors>=5.0.0",
+    
+    # Database & Vectors
+    "sqlalchemy>=2.0.36,<2.1",       # SQLAlchemy 2.0 stable (NO 2.1 beta)
+    "psycopg[binary]>=3.2.3",        # Psycopg 3 (async-ready)
+    "pgvector>=0.3.6",               # Python binding para pgvector
+    
+    # RAG Framework
+    "llama-index>=0.12.0",           # RAG pipeline (NOT LangChain)
+    
+    # LLMs & Embeddings
+    "openai>=1.59.3",                # OpenAI SDK (GPT-4o-mini + embeddings)
+    "anthropic>=0.40.0",             # Claude fallback
+    "tiktoken>=0.8.0",               # Tokenizer OpenAI
+    
+    # Rate Limiting & Auth
+    "flask-limiter>=3.8.0",          # Rate limiting por API key + IP
+    "flask-login>=0.6.3",            # User session management
+    "pyjwt>=2.10.0",                 # JWT tokens (API keys)
+    
+    # Billing & Payments
+    "stripe>=11.1.0",                # Stripe SDK para freemium tiers
+    
+    # Observability
+    "prometheus-client>=0.21.0",     # Métricas Prometheus
+    
+    # Utils
+    "python-dotenv>=1.0.1",          # .env file support
+    "pydantic>=2.10.0",              # Type validation & data models
+    "pydantic-settings>=2.6.0",      # Settings management
+    
+    # Production Server
+    "gunicorn>=23.0.0",              # WSGI production server
+]
+
+[project.optional-dependencies]
+dev = [
+    # Testing
+    "pytest>=8.3.4",
+    "pytest-flask>=1.3.0",
+    "pytest-cov>=6.0.0",
+    
+    # Code Quality
+    "black>=25.1.0",                 # Code formatter
+    "ruff>=0.9.1",                   # Fast linter
+    "mypy>=1.13.0",                  # Type checking
+    
+    # Development Tools
+    "ipython>=8.30.0",               # Enhanced REPL
+]
+
+[build-system]
+requires = ["setuptools>=75.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | \.pytest_cache
+  | __pycache__
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--verbose",
+    "--cov=app",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+
+# Flask App Configuration
+[tool.flask]
+app = "app:create_app"
+env = "development"
