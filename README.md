@@ -1,8 +1,16 @@
-# IApi - Intelligent API for LLMs with Attribution
+![HIApi banner](docs/banner.png)
 
-> **HCP v1.3.0** - Reference Implementation  
-> **Status**: Planning Phase  
-> **Type**: Full-stack RAG-powered API
+# HIApi — Intelligent API for LLMs with Attribution
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Status: planning](https://img.shields.io/badge/Status-planning-orange.svg)](#roadmap)
+[![FastAPI](https://img.shields.io/badge/FastAPI-async-green.svg)](https://fastapi.tiangolo.com)
+![visitors](https://komarev.com/ghpvc/?username=drhiidden&repo=HIApi&color=00ff88&style=flat-square)
+
+**AI ate the web. Get the traffic back.**
+
+> RAG-powered API que expone contenido web a LLMs con attribution obligatoria.  
+> Status: Planning Phase
 
 ---
 
@@ -264,3 +272,9 @@ HCP v1.3.0 structure is open for reference
 **HCP v1.3.0 - Reference Implementation**  
 *Structure better than template - battle-tested*  
 *Use IApi as example for your HCP projects*
+
+---
+
+## Metodología
+
+Desarrollado con [HCP (Human-Code-AI Protocol)](https://github.com/haletheia/human-code-ai-protocol) — protocolo git-native para Context Engineering.
