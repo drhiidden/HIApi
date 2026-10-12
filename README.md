@@ -6,7 +6,7 @@
 [![Status: planning](https://img.shields.io/badge/Status-planning-orange.svg)](#roadmap)
 [![FastAPI](https://img.shields.io/badge/FastAPI-async-green.svg)](https://fastapi.tiangolo.com)
 [![RAG-powered](https://img.shields.io/badge/RAG-powered-purple.svg)](#architecture)
-[![views](https://komarev.com/ghpvc/?username=lab-hiapi&label=views&color=0e75b6)](https://github.com/drhiidden/HIApi)
+[![views](https://komarev.com/ghpvc/?username=drhiidden&repo=HIApi&label=views&color=0e75b6)](https://github.com/drhiidden/HIApi)
 
 **AI ate the web. Get the traffic back.**
 
